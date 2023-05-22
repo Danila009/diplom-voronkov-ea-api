@@ -220,7 +220,7 @@ public class UserController : ControllerBase
     public ClaimsIdentity? GetIdentity(string login, string password)
     {
         var user = _efModel.Users.FirstOrDefault(
-            x => x != null && x.FirstName == login && x.Password == password);
+            x => x != null && x.Login == login && x.Password == password);
 
         if (user != null)
         {

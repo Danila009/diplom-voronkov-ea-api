@@ -215,10 +215,30 @@ namespace Diploma.Controllers
         [HttpDelete("Appointment/{id}")]
         public async Task<ActionResult> DeleteAppointmentPacient(int id)
         {
-            var appointment = await _efModel.Appointments.FindAsync(id);
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            if (identity == null)
+                return NotFound();
+
+            int idUser = Convert.ToInt32(identity.FindFirst("Id").Value);
+
+            var user = await _efModel.Users.FindAsync(idUser);
+
+            if (user == null)
+                return NoContent();
+
+            var appointment = await _efModel.Appointments
+                .Include(u => u.Pacient)
+                .FirstOrDefaultAsync(u => u.Id == id);
 
             if (appointment == null)
                 return NoContent();
+
+            if (user.Role == "PatientUser")
+            {
+                if (appointment.Pacient.Id != user.Id)
+                    return Unauthorized();
+            }
 
             _efModel.Appointments.Remove(appointment);
             await _efModel.SaveChangesAsync();

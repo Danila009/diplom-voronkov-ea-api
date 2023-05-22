@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hdnhd\\Source\\Repos\\diplom-voronkov-ea-api\\Diploma\\Diploma.csproj": {}
+    "C:\\Users\\danbe\\Desktop\\diplom-voronkov-ea-api\\Diploma\\Diploma.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hdnhd\\Source\\Repos\\diplom-voronkov-ea-api\\Diploma\\Diploma.csproj": {
+    "C:\\Users\\danbe\\Desktop\\diplom-voronkov-ea-api\\Diploma\\Diploma.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hdnhd\\Source\\Repos\\diplom-voronkov-ea-api\\Diploma\\Diploma.csproj",
+        "projectUniqueName": "C:\\Users\\danbe\\Desktop\\diplom-voronkov-ea-api\\Diploma\\Diploma.csproj",
         "projectName": "Diploma",
-        "projectPath": "C:\\Users\\hdnhd\\Source\\Repos\\diplom-voronkov-ea-api\\Diploma\\Diploma.csproj",
-        "packagesPath": "C:\\Users\\hdnhd\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hdnhd\\Source\\Repos\\diplom-voronkov-ea-api\\Diploma\\obj\\",
+        "projectPath": "C:\\Users\\danbe\\Desktop\\diplom-voronkov-ea-api\\Diploma\\Diploma.csproj",
+        "packagesPath": "C:\\Users\\danbe\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\danbe\\Desktop\\diplom-voronkov-ea-api\\Diploma\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\hdnhd\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\danbe\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
