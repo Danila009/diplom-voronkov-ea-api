@@ -107,13 +107,15 @@ public class UserController : ControllerBase
             imgBytes: memoryStream.ToArray()
        );
 
-        user.Photo = $"http://localhost:5000/api/User/{id}/Photo.jpg";
+        var url = $"http://localhost:5000/api/User/{id}/Photo.jpg";
+
+        user.Photo = url;
 
         _efModel.Entry(user).State = EntityState.Modified;
 
         await _efModel.SaveChangesAsync();
 
-        return Ok();
+        return Ok(url);
     }
 
     [HttpGet("{id}/Photo.jpg")]

@@ -42,7 +42,9 @@ namespace Diploma.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> Update(int id, UpdateDoctorDTO dto)
         {
-            var doctor = await _efModel.Doctors.FindAsync(id);
+            var doctor = await _efModel.Doctors
+                .Include(u => u.Post)
+                .FirstOrDefaultAsync(u => u.Id == id);
             
             if (doctor == null)
                 return NotFound();
