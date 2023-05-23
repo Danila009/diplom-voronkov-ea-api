@@ -16,7 +16,7 @@ namespace Diploma.Controllers;
 public class UserController : ControllerBase
 {
     private EfModel _efModel;
-    private ImageRepository imageRepository = new ImageRepository();
+    private FileRepository imageRepository = new FileRepository();
 
     public UserController(EfModel model)
     {
@@ -98,16 +98,13 @@ public class UserController : ControllerBase
         if (user == null)
             return NoContent();
 
-        MemoryStream memoryStream = new MemoryStream();
-        await file.CopyToAsync(memoryStream);
+        var uri = await imageRepository.UploadFile(
+            path: $"resources/users/{id}/photo/",
+            fileId: id.ToString(),
+            file: file
+        );
 
-        imageRepository.PostImage(
-            dir: $"resources/users/{id}/photo/",
-            id: id.ToString(),
-            imgBytes: memoryStream.ToArray()
-       );
-
-        var url = $"http://localhost:5000/api/User/{id}/Photo.jpg";
+        var url = $"http://localhost:5000/api/User/{id}/Photo.jpg?uri={uri}";
 
         user.Photo = url;
 
@@ -119,11 +116,10 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id}/Photo.jpg")]
-    public ActionResult GetUserPhoto(int id)
+    public ActionResult GetUserPhoto(int id, string uri)
     {
-        byte[]? file = imageRepository.GetImage(
-            $"resources/users/{id}/photo/",
-            id.ToString()
+        byte[]? file = imageRepository.GetFile(
+            uri
         );
 
         if (file != null)
