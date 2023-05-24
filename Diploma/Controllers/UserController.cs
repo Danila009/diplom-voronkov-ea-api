@@ -51,7 +51,7 @@ public class UserController : ControllerBase
 
     //[Authorize(Roles = "AdminUser")]
     [HttpGet("/api/Users")]
-    public async Task<ActionResult<List<User>>> GetUsers(string? search, string? role)
+    public async Task<ActionResult<List<UserDto>>> GetUsers(string? search, string? role)
     {
         IQueryable<User> users = _efModel.Users;
 
@@ -67,7 +67,42 @@ public class UserController : ControllerBase
             users = users.Where(u => u.Role == role);
         }
 
-        return await users.ToListAsync();
+        var usersList = await users.ToListAsync();
+        List<UserDto> usersDto = new();
+
+        foreach (var user in usersList)
+        {
+            Doctor? doctor = null;
+            Admin? admin = null;
+
+            if (user.Role == "DoctorUser")
+            {
+                doctor = await _efModel.Doctors
+                    .Include(u => u.Post)
+                    .FirstOrDefaultAsync(u => u.Id == user.Id);
+            }else if(user.Role == "AdminUser")
+            {
+                admin = await _efModel.Admins.FindAsync(user.Id);
+            }
+
+            var dto = new UserDto
+            {
+                Id = user.Id,
+                Login = user.Login,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                MidleName = user.MidleName,
+                Police = user.Police,
+                Photo = user.Photo,
+                Role = user.Role,
+                Admin = admin,
+                Doctor = doctor
+            };
+
+            usersDto.Add(dto);
+        }
+
+        return usersDto;
     }
 
     [Authorize]
